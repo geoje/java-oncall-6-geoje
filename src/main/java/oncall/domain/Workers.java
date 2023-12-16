@@ -8,6 +8,7 @@ import static oncall.constant.ErrorMessage.INVALID_VALUE;
 
 public record Workers(List<Worker> workers) {
     private static final String DELIMITER = ",";
+    private static final int MIN_LENGTH = 5;
     private static final int MAX_LENGTH = 35;
 
     public Workers {
@@ -26,7 +27,7 @@ public record Workers(List<Worker> workers) {
     }
 
     private void validateLength(List<Worker> workers) {
-        if (workers.size() > MAX_LENGTH) {
+        if (workers.size() < MIN_LENGTH || workers.size() > MAX_LENGTH) {
             throw new IllegalArgumentException(INVALID_VALUE.toString());
         }
     }
