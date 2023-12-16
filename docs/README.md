@@ -85,7 +85,7 @@
 </tr>
 </table>
 
-### 3️⃣ 비상 근무표 출력
+### 3️⃣ 비상 근무표 출력 ✔️
 
 <table>
 <tr>
@@ -95,7 +95,7 @@
 <tr>
 <td><ul>
     <li>
-        입력할 월에 해당하면 모든 날에 대한 비상 근무표 출력<br>
+        입력할 월에 해당하면 모든 날에 대한 비상 근무표 출력 ✔️<br>
         <code>5월 1일 월 준팍</code><br>
         <code>5월 2일 화 도밥</code><br>
         <code>5월 3일 수 고니</code><br>
@@ -103,13 +103,11 @@
     </li><br>
 </ul></td>
 <td><ul>
-    <li>평일이면서 법정공휴일의 경우에만 요일 뒤에 <code>(휴일)</code> 표기</li><br>
+    <li>평일이면서 법정공휴일의 경우에만 요일 뒤에 <code>(휴일)</code> 표기 ✔️</li><br>
     <li>비상 근무표 출력을 완료하면 프로그램은 종료 ✔️</li>
 </ul></td>
 </tr>
 </table>
-
-> 1️⃣ 2️⃣ 3️⃣ 4️⃣ 5️⃣ 6️⃣ ✔️
 
 ---
 
@@ -124,36 +122,52 @@
         <th>Description</th>
     </tr>
     <tr>
-        <td rowspan="2">
+        <td rowspan="4">
             <img src="https://raw.githubusercontent.com/mallowigi/iconGenerator/master/assets/icons/folders/constants.svg?sanitize=true"/>
             <b> constant</b>
         </td>
+        <td><b>DayOfWeekKo</b></td>
+        <td>요일을 한글로 표시해주며 다양한 숫자를 요일로 바꿔주는 상수</td>
+    </tr>
+    <tr>
         <td><b>ErrorMessage</b></td>
         <td>예외 상황에 사용 되는 정적 메세지</td>
     </tr>
     <tr>
         <td><b>GeneralMessage</b></td>
-        <td>일반 적인 입력 요청 또는 결과 알림에 사용 되는 메세지</td>
+        <td>일반적인 입력 요청 또는 결과 알림에 사용 되는 메세지</td>
+    </tr>
+    <tr>
+        <td><b>Holiday</b></td>
+        <td>공휴일을 의미하는 상수</td>
     </tr>
     <tr>
         <td>
             <img src="https://raw.githubusercontent.com/mallowigi/iconGenerator/master/assets/icons/folders/controllers.svg?sanitize=true"/>
             <b> controller</b>
         </td>
-        <td><b>XXXXController</b></td>
-        <td>입력을 받아 계산하고 출력 해주는 전체 진행 담당 컨트롤러</td>
+        <td><b>ScheduleController</b></td>
+        <td>여러 입력을 받아 최종 근무표를 요청하여 출력까지 해주는 전체 진행 담당 컨트롤러</td>
     </tr>
     <tr>
-        <td rowspan="2">
+        <td rowspan="4">
             <img src="https://raw.githubusercontent.com/mallowigi/iconGenerator/master/assets/icons/folders/home.svg?sanitize=true"/>
             <b> domain</b>
         </td>
-        <td><b>XXXX</b></td>
-        <td>XXXX</td>
+        <td><b>AdvancedCalendar</b></td>
+        <td>월과 요일로 새로운 달력을 만들고 근무자를 통해 근무표까지 만들어 주는 도메인</td>
     </tr>
     <tr>
-        <td><b>XXXX</b></td>
-        <td>XXXX</td>
+        <td><b>DaySchedule</b></td>
+        <td>한 날의 근무 스케쥴 하나를 의미하는 도메인</td>
+    </tr>
+    <tr>
+        <td><b>Worker</b></td>
+        <td>한 근무자를 의마하는 도메인</td>
+    </tr>
+    <tr>
+        <td><b>Workers</b></td>
+        <td>여러 근무자 컬렉션을 가지며 다음 근무자를 뽑아주는 도메인</td>
     </tr>
     <tr>
         <td rowspan="2">
@@ -173,15 +187,15 @@
 
 ## ✨ 최종 코딩테스트를 통해 배운 것
 
-### 💡 XXXX
+### 💡 AtomicInteger
 
-- XXXX
+- 프리코스 `4주차` 에서 먼저 공부 했었던 것이였습니다.
+- 예전에 사용에 필요할 때와 비슷한 상황이지만 다른 점이 있었습니다.
+- `4주차` 에서는 `병렬적` 계산에 사용되어 여러 스레드가 동시 접근하는 문제가 발생하였습니다.
+- 이번 최종 코딩테스트에서도 비슷하지만 단순히 다른 스레드에서 지역 변수를 엑세스 하려고 하니 문제가 생겼고 `AtomicInteger` 를 사용하여 해결 할 수 있는 문구를 확인하였습니다.
+- 병렬처리에서만이 아닌 단순히 크로스 스레드로 데이터를 엑세스할 경우 이 객체를 사용하면 될 것임을 제대로 배울 수 있었습니다.
 
-년도를 고려하지 않고 2월이 28일까지있으면 되니 `2023` 또는 `2024` 년으로 고정하였다.
-2023 선택
+### 💡 일급 컬렉션
 
-나만의 켈린더를 만들어서 실제 그 달의 요일에서 내가 입력을 요일 만큼 차를 구한다.
-이는 `Offset` 으로 사용되어 나중에 프로그램이 원하는 날짜의 요일을 반환할 때 차
-이만큼 더하고 나머지를 구해서 요일 표시에 사용된다.
-
-시간 남으면 Workers 에서 , 분리 후 공백인 문자열은 제거하고 Worker 생성하여 좀 더 유연하게 리팩토링 하자
+- `2주차` 에서 부터 계속 사용해오던 일급 컬렉션 도메인 객체에서의 한계점도 부딪히게 되었습니다.
+- `Workers` 라는 도메인을 만들어 `List<Worker>` 를 하나의 객체로 가지는 `Record` 로 만들었습니다.
