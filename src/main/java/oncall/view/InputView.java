@@ -5,7 +5,7 @@ import oncall.constant.GeneralMessage;
 
 public class InputView {
     private static String readWithGeneralMessage(GeneralMessage message, Object... args) {
-        System.out.printf(message.toString() + "%n", args);
+        System.out.printf(message.toString() + " ", args);
         return Console.readLine().trim();
     }
 
