@@ -17,14 +17,16 @@ public class WorkersTest {
             new Workers(List.of(
                     new Worker("경호"),
                     new Worker("수빈"),
-                    new Worker("진서")
+                    new Worker("진서"),
+                    new Worker("동하"),
+                    new Worker("진홍")
             ));
         }).doesNotThrowAnyException();
     }
 
     @ParameterizedTest
     @DisplayName("문자열을 통한 생성")
-    @ValueSource(strings = {"경호,수빈,진서"})
+    @ValueSource(strings = {"경호,수빈,진서,동하,진홍"})
     void from(String workers) {
         assertThatCode(() -> Workers.from(workers))
                 .doesNotThrowAnyException();
@@ -32,7 +34,7 @@ public class WorkersTest {
 
     @ParameterizedTest
     @DisplayName("사원이 중복될 경우 예외")
-    @ValueSource(strings = {"경호,수빈,진서,수빈"})
+    @ValueSource(strings = {"경호,수빈,진서,동하,수빈"})
     void validateDuplicate(String workers) {
         assertThatCode(() -> Workers.from(workers))
                 .isInstanceOf(IllegalArgumentException.class);
@@ -47,8 +49,8 @@ public class WorkersTest {
     }
 
     @ParameterizedTest
-    @DisplayName("사원이 너무 많을 경우 예외")
-    @ValueSource(strings = {"1,2,3,4,5,6,7,8,9,0,q,w,e,r,t,y,u,i,o,p,a,s,d,f,g,h,j,k,l,z,x,c,v,b,n,m"})
+    @DisplayName("사원이 너무 많거나 적을 경우 예외")
+    @ValueSource(strings = {"a,b,c,d", "1,2,3,4,5,6,7,8,9,0,q,w,e,r,t,y,u,i,o,p,a,s,d,f,g,h,j,k,l,z,x,c,v,b,n,m"})
     void validateCount(String workers) {
         assertThatCode(() -> Workers.from(workers))
                 .isInstanceOf(IllegalArgumentException.class);
