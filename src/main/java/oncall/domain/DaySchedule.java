@@ -19,6 +19,6 @@ public record DaySchedule(int month, int day, DayOfWeekKo dayOfWeek, boolean day
 
     @Override
     public String toString() {
-        return String.format(DAY_SCHEDULE.toString(), month, day, buildDayOfWeekAsString(), worker.name());
+        return String.format(DAY_SCHEDULE.toString(), month + 1, day, buildDayOfWeekAsString(), worker.name());
     }
 }
