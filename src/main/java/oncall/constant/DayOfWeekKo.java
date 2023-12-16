@@ -32,4 +32,9 @@ public enum DayOfWeekKo {
     public DayOfWeek getDayOfWeek() {
         return dayOfWeek;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
