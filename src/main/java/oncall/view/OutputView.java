@@ -14,7 +14,11 @@ public class OutputView {
         System.out.println(EXCEPTION_PREFIX + message);
     }
 
-    public static void printResult() {
-        System.out.printf("%n%n여기에 결과가!%n");
+    public static void printTwoNewLines() {
+        System.out.printf("%n%n");
+    }
+
+    public static void printResult(Object result) {
+        System.out.println(result);
     }
 }

@@ -3,6 +3,7 @@ package oncall.domain;
 import oncall.constant.DayOfWeekKo;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import static oncall.constant.ErrorMessage.INVALID_VALUE;
@@ -46,5 +47,13 @@ public record AdvancedCalendar(int month, DayOfWeekKo dayOfWeek) {
         if (monthDayOfWeek.split(DELIMITER).length < 2) {
             throw new IllegalArgumentException(INVALID_VALUE.toString());
         }
+    }
+
+    public List<DaySchedule> buildTable(Workers weekdayWorkers, Workers dayoffWorkers) {
+        return List.of(
+                new DaySchedule(12, 1, DayOfWeekKo.SUNDAY, false, new Worker("경호")),
+                new DaySchedule(12, 2, DayOfWeekKo.MONDAY, false, new Worker("수빈")),
+                new DaySchedule(12, 3, DayOfWeekKo.TUESDAY, true, new Worker("진서"))
+        );
     }
 }
