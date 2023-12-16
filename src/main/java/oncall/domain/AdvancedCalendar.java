@@ -1,10 +1,12 @@
 package oncall.domain;
 
 import oncall.constant.DayOfWeekKo;
+import oncall.constant.Holiday;
 
 import java.util.Calendar;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.IntStream;
 
 import static oncall.constant.ErrorMessage.INVALID_VALUE;
 
@@ -17,7 +19,7 @@ public record AdvancedCalendar(int month, DayOfWeekKo dayOfWeek) {
     private static final int MAX_MONTH = 12;
 
     public AdvancedCalendar {
-        CAL.set(Calendar.YEAR, YEAR);
+        CAL.set(YEAR, month, 1);
     }
 
     public static AdvancedCalendar from(String monthDayOfWeek) {
@@ -27,7 +29,7 @@ public record AdvancedCalendar(int month, DayOfWeekKo dayOfWeek) {
         validateNumeric(month);
         validateMonth(month);
 
-        return new AdvancedCalendar(Integer.parseInt(month), DayOfWeekKo.from(dayOfWeek));
+        return new AdvancedCalendar(Integer.parseInt(month) - 1, DayOfWeekKo.from(dayOfWeek));
     }
 
     private static void validateNumeric(String month) {
@@ -50,10 +52,16 @@ public record AdvancedCalendar(int month, DayOfWeekKo dayOfWeek) {
     }
 
     public List<DaySchedule> buildTable(Workers weekdayWorkers, Workers dayoffWorkers) {
-        return List.of(
-                new DaySchedule(12, 1, DayOfWeekKo.SUNDAY, false, new Worker("경호")),
-                new DaySchedule(12, 2, DayOfWeekKo.MONDAY, false, new Worker("수빈")),
-                new DaySchedule(12, 3, DayOfWeekKo.TUESDAY, true, new Worker("진서"))
-        );
+        int offset = dayOfWeek.getValue() - CAL.get(Calendar.DAY_OF_WEEK);
+
+        return IntStream
+                .range(1, CAL.getMaximum(Calendar.DAY_OF_MONTH))
+                .mapToObj(day -> new DaySchedule(
+                        month,
+                        day,
+                        DayOfWeekKo.from(day + offset),
+                        Holiday.is(month, day),
+                        weekdayWorkers.workers().get(0)))
+                .toList();
     }
 }
