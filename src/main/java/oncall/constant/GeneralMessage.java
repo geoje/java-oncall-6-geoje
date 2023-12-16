@@ -5,7 +5,9 @@ public enum GeneralMessage {
 
     REQUEST_WEEKDAY_WORKER("평일 비상 근무 순번대로 사원 닉네임을 입력하세요>"),
 
-    REQUEST_DAY_OFF_WORKER("휴일 비상 근무 순번대로 사원 닉네임을 입력하세요>");
+    REQUEST_DAY_OFF_WORKER("휴일 비상 근무 순번대로 사원 닉네임을 입력하세요>"),
+
+    DAY_SCHEDULE("%d월 %d일 %s %s");
 
     private final String message;
 
