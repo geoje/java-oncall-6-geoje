@@ -15,6 +15,6 @@ public class OutputView {
     }
 
     public static void printResult() {
-        System.out.println("여기에 결과가!");
+        System.out.printf("%n%n여기에 결과가!%n");
     }
 }

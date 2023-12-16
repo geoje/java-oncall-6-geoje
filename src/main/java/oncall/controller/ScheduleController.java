@@ -5,13 +5,13 @@ import oncall.domain.Workers;
 import oncall.view.InputView;
 import oncall.view.OutputView;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public class ScheduleController {
     public static void run() {
         AdvancedCalendar advancedCalendar = requestAdvancedCalendar();
-        Workers weekdayWorkers = requestWeekdayWorkers();
-        Workers dayoffWorkers = requestDayoffWorkers();
+        List<Workers> TwoWorkers = requestWeekdayAndDayoffWorkers();
         printResult();
     }
 
@@ -29,12 +29,11 @@ public class ScheduleController {
         return requestUntilValidated(() -> AdvancedCalendar.from(InputView.readMonthDayOfWeek()));
     }
 
-    private static Workers requestWeekdayWorkers() {
-        return requestUntilValidated(() -> Workers.from(InputView.readWeekdayWorkers()));
-    }
-
-    private static Workers requestDayoffWorkers() {
-        return requestUntilValidated(() -> Workers.from(InputView.readDayOffWorkers()));
+    private static List<Workers> requestWeekdayAndDayoffWorkers() {
+        return requestUntilValidated(() -> List.of(
+                Workers.from(InputView.readWeekdayWorkers()),
+                Workers.from(InputView.readDayOffWorkers())
+        ));
     }
 
     private static void printResult() {

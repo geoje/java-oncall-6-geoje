@@ -18,8 +18,6 @@ public class InputView {
     }
 
     public static String readDayOffWorkers() {
-        String result = readWithGeneralMessage(GeneralMessage.REQUEST_DAY_OFF_WORKER);
-        System.out.printf("%n%n");
-        return result;
+        return readWithGeneralMessage(GeneralMessage.REQUEST_DAY_OFF_WORKER);
     }
 }
